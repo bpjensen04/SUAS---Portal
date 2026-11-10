@@ -1,0 +1,54 @@
+/* ==========================================================================
+   SUAS Portal Stylesheet (style.css)
+   Custom UI enhancements, animations, and responsive utilities
+   ========================================================================== */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* Active Navigation Tab */
+.tab-active {
+  border-color: #0284c7;
+  color: #0284c7;
+  background-color: #f0f7ff;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+/* Motor Rotation Animations for Drone Assembly Visualizer */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-slow-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.motor-cw {
+  animation: spin-slow 4s linear infinite;
+}
+
+.motor-ccw {
+  animation: spin-slow-reverse 4s linear infinite;
+}
