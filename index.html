@@ -1,17 +1,52 @@
+<!-- =============================================================================
+     SUAS PORTAL - MAIN APPLICATION STRUCTURE (index.html)
+     =============================================================================
+     WHAT IS HTML?
+     HTML stands for "HyperText Markup Language". It is the universal standard 
+     code used to structure webpages. HTML uses "tags" enclosed in angle brackets 
+     (such as <header>, <div>, <p>, and <button>) to tell web browsers what 
+     content to display on the screen.
+     ============================================================================= -->
 <!DOCTYPE html>
+<!-- The <html> tag is the root container for the entire webpage. lang="en" tells browsers and screen readers that the page content is in English. -->
 <html lang="en">
 <head>
+  <!-- Character encoding: UTF-8 ensures standard symbols, letters, numbers, and emojis render correctly. -->
   <meta charset="UTF-8">
+
+  <!-- Responsive Viewport: Tells mobile phones and tablets to scale the page width to fit their physical screen width (1.0 zoom), preventing awkward zooming or horizontal scrolling. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Webpage Title: Appears on browser tabs, bookmarks, and search engine results. -->
   <title>Basic SUAS Information, FAA Part 107 & Drone Assembly Portal</title>
+
+  <!-- Tailwind CSS Framework: An external utility-first CSS stylesheet loaded from a Content Delivery Network (CDN). Instead of writing thousands of lines of manual CSS, Tailwind provides pre-made utility class names (like "p-4" for padding or "text-white" for white text) that we apply directly to HTML elements. -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <!-- External Custom Stylesheet -->
+
+  <!-- External Custom Stylesheet: Links index.html to our custom CSS file (style.css), which contains custom scrollbars, keyframe rotation animations, and typography rules. -->
   <link rel="stylesheet" href="style.css">
 </head>
+<!-- The <body> tag contains everything that is visually visible on the webpage.
+     Tailwind classes applied here:
+     - "bg-slate-50": Light slate gray background for soft, modern contrast.
+     - "text-slate-800": Dark slate gray text color for high legibility.
+     - "min-h-screen": Ensures the page height stretches to at least the full height of the user's screen.
+     - "flex flex-col": Uses CSS Flexbox to stack header, main content, and footer vertically.
+     - "font-sans": Sets the base typography to standard sans-serif.
+     - "antialiased": Smoothes font edge rendering on high-DPI screens. -->
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans antialiased">
 
-  <!-- Top Navigation & System Bar -->
+
+
+  <!-- ===========================================================================
+       HEADER & NAVIGATION BAR (STICKY TOP)
+       ===========================================================================
+       The <header> contains our brand logo, the unit switcher (US vs. Metric),
+       and the primary tab navigation. "sticky top-0 z-40" keeps this header pinned
+       to the top of the browser screen even when the user scrolls down the page.
+       =========================================================================== -->
   <header class="bg-slate-900 text-slate-200 border-b border-slate-800 sticky top-0 z-40 shadow-sm">
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo / Title Area -->
@@ -39,8 +74,17 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs Along the Top -->
+
+      <!-- -----------------------------------------------------------------------
+           TOP NAVIGATION TABS
+           -----------------------------------------------------------------------
+           This <nav> container holds the 5 interactive view buttons.
+           Each button has a "data-tab" attribute (e.g., data-tab="home", data-tab="part107").
+           JavaScript listens for click events on these buttons and switches the
+           corresponding section on and off dynamically without reloading the page.
+           ----------------------------------------------------------------------- -->
       <nav class="flex space-x-1 sm:space-x-2 border-t border-slate-800 pt-1 overflow-x-auto custom-scrollbar" aria-label="Tabs" id="tabNav">
+
         <!-- Tab 1: Home -->
         <button data-tab="home" class="tab-btn px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold border-b-2 whitespace-nowrap transition-all border-sky-500 text-sky-400 bg-slate-800/50 rounded-t-lg">
           <span class="flex items-center gap-1.5">
@@ -84,13 +128,30 @@
     </div>
   </header>
 
-  <!-- Main Content Body -->
+
+  <!-- ===========================================================================
+       MAIN CONTENT CONTAINER
+       ===========================================================================
+       The <main> element holds the primary content of the site. Inside it are 5
+       distinct <section> elements, one for each tab.
+       By default, Tab 1 (#tab-home) is visible (using "block"), while Tabs 2-5
+       are hidden (using "hidden"). When a user clicks a tab button above,
+       JavaScript toggles these classes to reveal the requested section.
+       =========================================================================== -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-    <!-- ========================================== -->
-    <!-- TAB 1: HOME (FRONT PAGE) -->
-    <!-- ========================================== -->
+
+
+    <!-- =========================================================================
+         TAB 1: HOME & OVERVIEW (FRONT PAGE VIEW)
+         =========================================================================
+         This section displays:
+         1. The prominent Hero Banner with the exact requested text "basic SUAS information".
+         2. Key statutory operational numbers at a glance (Altitude, Speed, Weight, Visibility).
+         3. Three quick-action pathway cards that jump directly into deeper sections.
+         ========================================================================= -->
     <section id="tab-home" class="tab-content space-y-8 block">
+
       
       <!-- HERO BANNER WITH USER-REQUESTED EXACT TEXT -->
       <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-sky-900/50">
@@ -245,10 +306,18 @@
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 2: FAA PART 107 (COMBINED RULES & COMPLIANCE) -->
-    <!-- ========================================== -->
+
+    <!-- =========================================================================
+         TAB 2: FAA PART 107 (REGULATIONS, AIRSPACE & COMPLIANCE CHECKER)
+         =========================================================================
+         This section covers:
+         1. Airspace Classifications table (Class B, C, D, E controlled vs. Class G uncontrolled).
+         2. Operations Over People categories (Categories 1-4) and Night Flight rules.
+         3. The Interactive Flight Compliance Checker, where users test drone weight,
+            planned altitude, and cloud clearances with instant pass/fail validation.
+         ========================================================================= -->
     <section id="tab-part107" class="tab-content space-y-8 hidden">
+
       <!-- Part 107 Rules & Airspace Section -->
       <div id="tab-rules" class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -504,10 +573,18 @@
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 3: DRONE ASSEMBLY (NEW DEDICATED TAB) -->
-    <!-- ========================================== -->
+
+    <!-- =========================================================================
+         TAB 3: DRONE ASSEMBLY (STEP-BY-STEP HARDWARE & ENGINEERING WORKSHOP)
+         =========================================================================
+         This section teaches how to assemble an sUAS quadcopter from scratch:
+         1. Component Bill of Materials (BOM) Explorer: click parts to see wiring specs.
+         2. Step-by-step interactive 6-stage build checklist with live percentage progress.
+         3. Motor rotation diagram visualizer (Props-In vs. Props-Out configurations).
+         4. Virtual "Smoke Stopper" current-limiter safety simulator for bench testing.
+         ========================================================================= -->
     <section id="tab-assembly" class="tab-content space-y-8 hidden">
+
       <!-- Assembly Header Banner -->
       <div class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-emerald-900/60 shadow-lg">
         <div class="max-w-3xl">
@@ -806,10 +883,18 @@
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 4: CUSTOM INFO & LOGS (USER INPUT FEATURE) -->
-    <!-- ========================================== -->
+
+    <!-- =========================================================================
+         TAB 4: CUSTOM INFO & LOGS (USER INPUT & LOCALSTORAGE DATA PERSISTENCE)
+         =========================================================================
+         This section fulfills the user's custom data requirement:
+         1. Collapsible form to input new drone models, mission notes, or equipment specs.
+         2. Real-time search filter and category buttons (Fleet, Assembly, Missions, Specs).
+         3. Dynamic card grid rendering all saved entries.
+         4. Backed by browser localStorage so data remains safe across browser refreshes.
+         ========================================================================= -->
     <section id="tab-custom-info" class="tab-content space-y-8 hidden">
+
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
         
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -890,10 +975,17 @@
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 5: STUDY QUIZ -->
-    <!-- ========================================== -->
+
+    <!-- =========================================================================
+         TAB 5: STUDY QUIZ (AIRMAN KNOWLEDGE TEST SIMULATOR)
+         =========================================================================
+         This section provides an interactive 5-question test on FAA Part 107 rules.
+         JavaScript evaluates option clicks, displays instant color-coded feedback
+         (green for correct, red for incorrect), cites the official CFR regulation,
+         and updates the score counter.
+         ========================================================================= -->
     <section id="tab-quiz" class="tab-content space-y-8 hidden">
+
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm max-w-3xl mx-auto">
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
           <div>
@@ -921,8 +1013,17 @@
 
   </main>
 
-  <!-- Global Footer -->
+
+  <!-- ===========================================================================
+       GLOBAL FOOTER & SCRIPT INCLUSION
+       ===========================================================================
+       The <footer> provides official copyright, disclaimer, and reference notes.
+       The <script src="script.js"> tag is placed right before the closing </body>
+       tag so that all HTML elements are parsed and available in the browser's DOM
+       before JavaScript begins executing.
+       =========================================================================== -->
   <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-xs mt-12">
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2">
         <span class="font-bold text-slate-200">SUAS Information & Build Portal</span>

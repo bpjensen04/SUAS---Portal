@@ -1,32 +1,84 @@
 /* ==========================================================================
-   SUAS Portal Stylesheet (style.css)
-   Custom UI enhancements, animations, and responsive utilities
+   SUAS PORTAL STYLESHEET (style.css)
+   ==========================================================================
+   
+   WHAT IS CSS?
+   CSS stands for "Cascading Style Sheets". While HTML creates the structure 
+   and content (like building the walls and rooms of a house), CSS provides 
+   the styling, colors, layout, fonts, and animations (the interior design).
+   
+   HOW THIS FILE WORKS:
+   This file contains custom style rules that supplement Tailwind CSS (the 
+   utility framework loaded in index.html). When index.html loads, it links 
+   to this file using: <link rel="stylesheet" href="style.css">.
    ========================================================================== */
 
-/* Google Fonts Import */
+/* --------------------------------------------------------------------------
+   1. EXTERNAL TYPOGRAPHY IMPORT
+   --------------------------------------------------------------------------
+   @import is a CSS directive (command) that fetches external resources.
+   Here, it reaches out to Google Fonts over the internet to download two fonts:
+   - "Inter": A modern, clean sans-serif typeface designed for user interfaces.
+   - "JetBrains Mono": A monospace typeface (where every character has the 
+     exact same width), ideal for technical numbers, IDs, and airport codes.
+   -------------------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
-/* Active Navigation Tab */
+/* --------------------------------------------------------------------------
+   2. ACTIVE NAVIGATION TAB HIGHLIGHT
+   --------------------------------------------------------------------------
+   A "class selector" starts with a dot (.).
+   .tab-active applies styles to the currently active top navigation button.
+   - border-color: Sets the bottom indicator line to a vibrant sky blue (#0284c7).
+   - color: Changes the text and icon color to match the border.
+   - background-color: Adds a very soft blue tint (#f0f7ff) to show it's selected.
+   -------------------------------------------------------------------------- */
 .tab-active {
   border-color: #0284c7;
   color: #0284c7;
   background-color: #f0f7ff;
 }
 
-/* Custom Scrollbar */
+/* --------------------------------------------------------------------------
+   3. CUSTOM SCROLLBAR STYLING
+   --------------------------------------------------------------------------
+   "Pseudo-elements" start with double colons (::). They let us style specific 
+   internal parts of an element that aren't separate HTML tags.
+   These rules style the horizontal scrollbar for navigation tabs on smaller screens.
+   -------------------------------------------------------------------------- */
+
+/* ::-webkit-scrollbar controls the overall width and height of the scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
+  width: 6px;  /* Vertical scrollbar thickness */
+  height: 6px; /* Horizontal scrollbar thickness */
 }
 
-/* Motor Rotation Animations for Drone Assembly Visualizer */
+/* ::-webkit-scrollbar-track styles the background track that the bar slides along */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9; /* Light slate gray track */
+}
+
+/* ::-webkit-scrollbar-thumb styles the draggable slider handle itself */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;       /* Medium slate gray handle */
+  border-radius: 9999px;     /* Pill-shaped rounded edges */
+}
+
+/* --------------------------------------------------------------------------
+   4. KEYFRAME ANIMATIONS (MOTOR ROTATION VISUALIZER)
+   --------------------------------------------------------------------------
+   WHAT IS AN @keyframes RULE?
+   @keyframes defines a step-by-step animation sequence in CSS. You define 
+   how an element should look at the start ("from" or 0%) and at the end 
+   ("to" or 100%). The browser automatically calculates all intermediate 
+   frames in between, creating smooth motion.
+   
+   WHAT IS "transform: rotate()"?
+   "transform" is a CSS property that modifies the coordinate space of an element.
+   "rotate(Xdeg)" turns the element clockwise around its center point by X degrees.
+   -------------------------------------------------------------------------- */
+
+/* Animation for Clockwise (CW) rotation: turns from 0 degrees to 360 degrees */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -36,6 +88,7 @@
   }
 }
 
+/* Animation for Counter-Clockwise (CCW) rotation: turns in reverse from 360 to 0 */
 @keyframes spin-slow-reverse {
   from {
     transform: rotate(360deg);
@@ -45,10 +98,21 @@
   }
 }
 
+/* --------------------------------------------------------------------------
+   5. ANIMATION UTILITY CLASSES
+   --------------------------------------------------------------------------
+   These classes apply the keyframe animations defined above to drone motors.
+   - animation: specifies the keyframe name (spin-slow), the duration (4 seconds 
+     for one full rotation), the timing function (linear: constant speed), 
+     and the iteration count (infinite: loops forever without stopping).
+   -------------------------------------------------------------------------- */
+
+/* Applied to motors that spin Clockwise */
 .motor-cw {
   animation: spin-slow 4s linear infinite;
 }
 
+/* Applied to motors that spin Counter-Clockwise */
 .motor-ccw {
   animation: spin-slow-reverse 4s linear infinite;
 }

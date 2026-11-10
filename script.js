@@ -1,9 +1,27 @@
-/* ==========================================================================
-   SUAS Portal Client-Side Application Script (script.js)
-   Handles tabs, Part 107 compliance calculator, drone assembly guide,
-   localStorage data management, and study quiz engine.
-   ========================================================================== */
+// =============================================================================
+// SUAS PORTAL CLIENT-SIDE APPLICATION SCRIPT (script.js)
+// =============================================================================
+//
+// WHAT IS JAVASCRIPT?
+// JavaScript is the programming language of the web. While HTML creates the
+// elements (buttons, text, boxes) and CSS makes them look good, JavaScript
+// gives them behavior and interactivity (making tabs switch, calculating
+// flight limits, saving data, and running quizzes).
+//
+// HOW THIS FILE COMMUNICATES WITH HTML:
+// JavaScript interacts with HTML through the "DOM" (Document Object Model).
+// The DOM is the browser's internal tree representation of the webpage.
+// Functions like `document.getElementById('id')` allow JavaScript to find
+// specific HTML elements, read what the user typed, and update the screen.
+// =============================================================================
 
+// -----------------------------------------------------------------------------
+// 1. TAILWIND CSS IN-BROWSER CONFIGURATION
+// -----------------------------------------------------------------------------
+// Tailwind CSS is a "utility-first" styling framework. Here, we extend its default
+// theme by configuring our own custom font families ('Inter' and 'JetBrains Mono')
+// and a custom 'brand' color palette with shades of sky blue (50 to 900).
+// -----------------------------------------------------------------------------
 // Tailwind CSS In-Browser Configuration
 if (typeof tailwind !== 'undefined') {
   tailwind.config = {
@@ -219,13 +237,24 @@ if (typeof tailwind !== 'undefined') {
     }
 
     // Security: Sanitize record IDs to prevent DOM attribute injection
-    function sanitizeId(id) {
+    
+// ID SANITIZER:
+// Uses a "Regular Expression" (regex) to strip out all characters except
+// letters (a-z, A-Z), digits (0-9), hyphens (-), and underscores (_).
+function sanitizeId(id) {
+
       if (!id) return 'rec-' + Date.now();
       return String(id).replace(/[^a-zA-Z0-9_-]/g, '');
     }
 
     // Security: Schema validator & sanitizer for deserialized records (anti-prototype pollution & type validation)
-    function sanitizeAndValidateRecords(raw) {
+    
+// SCHEMA VALIDATOR & PROTOTYPE POLLUTION GUARD:
+// When reading data from browser storage, we verify the data structure.
+// This function ensures the data is a true Array, rejects prototype pollution
+// keys (__proto__, constructor), and clamps text lengths to safe boundaries.
+function sanitizeAndValidateRecords(raw) {
+
       if (!Array.isArray(raw)) return [...defaultRecords];
       const sanitized = [];
       const MAX_RECORDS = 100;
